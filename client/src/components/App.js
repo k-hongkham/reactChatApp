@@ -1,3 +1,6 @@
+import React from "react";
+import '../style/App.css'@testing-library/jest-dom
+
 function App() {
   return (
     <div id="App">
