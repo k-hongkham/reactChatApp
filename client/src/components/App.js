@@ -1,12 +1,9 @@
 import React from "react";
-import '../style/App.css'@testing-library/jest-dom
+import "../style/App.css";
+import Login from "./Login/Login.jsx";
 
 function App() {
-  return (
-    <div id="App">
-      <h1>Hello World</h1>
-    </div>
-  );
+  return <Login />;
 }
 
 export default App;
