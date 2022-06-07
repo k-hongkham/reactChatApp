@@ -5,8 +5,8 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [Error, setError] = useState(false);
-  const [ErrorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   return (
     <div id="login_portal">
@@ -17,7 +17,9 @@ const Login = () => {
         setPassword={setPassword}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
-        ErrorMessage={ErrorMessage}
+        error={error}
+        setError={setError}
+        errorMessage={errorMessage}
         setErrorMessage={setErrorMessage}
       />
     </div>
