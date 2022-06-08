@@ -33,6 +33,8 @@ const RegisterUser = ({
           password,
           newUserEmail
         );
+        console.log("hi");
+        console.log("HERE", response);
         setError(false);
         localStorage.setItem("token", response.token);
         setToken(response.token);
@@ -56,28 +58,35 @@ const RegisterUser = ({
           </h2>
         </div>
         <div className="modal-body p-5 pt-0">
-          <form>
+          <form onSubmit={handleRegistration}>
             <div className="form-floating mb-3">
               <input
-                type="login"
+                type="text"
                 className="form-control rounded-3"
-                id="floatingInput"
-                placeholder="name@example.com"
                 name="register-Username"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                id="floatingInput"
+                placeholder="Username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                required
               />
               <label htmlFor="register-Username floatingInput">Username</label>
             </div>
             <div className="form-floating mb-3">
               <input
-                type="text"
+                type="password"
                 className="form-control rounded-3"
-                id="floatingPassword"
-                placeholder="Password"
                 name="register-password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                id="floatingPassword"
+                placeholder="Password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                required
+                minLength={8}
               />
               <label htmlFor="register-password floatingPassword">
                 Password
@@ -85,15 +94,17 @@ const RegisterUser = ({
             </div>
             <div className="form-floating mb-3">
               <input
-                type="text"
+                type="password"
                 className="form-control rounded-3"
-                id="floatingPassword"
+                id="floatingConfirmPW"
                 placeholder="Confirm Password"
                 name="confirm-password"
                 value={confirmPW}
-                onChange={(e) => setConfirmPW(e.target.value)}
+                onChange={(e) => {
+                  setConfirmPW(e.target.value);
+                }}
               />
-              <label htmlFor="confirm-password floatingPassword">
+              <label htmlFor="confirm-password floatingConfirmPW">
                 {" "}
                 Confirm Password
               </label>
@@ -102,18 +113,19 @@ const RegisterUser = ({
               <input
                 type="text"
                 className="form-control rounded-3"
-                id="floatingPassword"
+                id="floatingEmail"
                 placeholder="Password"
                 name="register-email"
-                value={newUserEmail}
-                onChange={(e) => setNewUserEmail(e.target.value)}
+                value={newUserEmail || ""}
+                onChange={(e) => {
+                  setNewUserEmail(e.target.value);
+                }}
               />
-              <label htmlFor="register-email floatingPassword">Email</label>
+              <label htmlFor="register-email floatingEmail">Email</label>
             </div>
             <button
               className="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
-              type="submit "
-              onClick={(e) => handleRegistration(e.target.value)}
+              type="submit"
             >
               Register
             </button>

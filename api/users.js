@@ -4,6 +4,7 @@ const {
   createUser,
   getUserByUsername,
   getUserByEmail,
+  registerNewUser,
 } = require("../db/models/user");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
@@ -42,7 +43,8 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
-usersRouter.post("/register", async (req, res, next) => {
+usersRouter.post("/registerNewUser", async (req, res, next) => {
+  console.log("REQUEST TO REGISTER", req.body);
   const { username, password, email } = req.body;
   try {
     const _user = await getUserByUsername(username);
@@ -65,12 +67,14 @@ usersRouter.post("/register", async (req, res, next) => {
       const user = await createUser({
         username,
         password,
+        email,
       });
       console.log(user);
       const token = jwt.sign(
         {
           id: user.id,
           username,
+          email,
         },
         process.env.JWT_SECRET,
         {
