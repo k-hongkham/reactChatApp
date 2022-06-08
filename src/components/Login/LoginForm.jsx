@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { userLogin } from "../../axios";
+import { Link } from "react-router-dom";
 
 const LoginForm = ({
   username,
@@ -22,6 +23,7 @@ const LoginForm = ({
 
       localStorage.setItem("token", response.token);
       setToken(response.token);
+
       setIsLoggedIn(false);
     } catch (error) {
       throw error;
@@ -71,15 +73,15 @@ const LoginForm = ({
             </button>
             <hr className="my-4"></hr>
             <h2 className="fs-5 fw-bold mb-3"> Or Sign up for free</h2>
-            <button
-              className="w-100 py-2 mb-2 btn btn-outline-dark rounded-3"
-              type="submit"
-              onClick={() => {
-                setIsRegistered(true);
-              }}
-            >
-              Register a New Account
-            </button>
+            <Link to="/registerNewUser" className="nav-link">
+              <button
+                className="w-100 py-2 mb-2 btn btn-outline-dark rounded-3"
+                type="submit"
+                onClick={(e) => setIsRegistered(true)}
+              >
+                Register a New Account
+              </button>
+            </Link>
           </form>
         </div>
       </div>

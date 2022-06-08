@@ -6,18 +6,18 @@ module.exports = {
   getUserByEmail,
 };
 
-async function createUser({ username, password, email, tagname }) {
+async function createUser({ username, password, email }) {
   try {
     const {
       rows: [user],
     } = await client.query(
       `
-            INSERT INTO users (username, password, email, tagname)
-            VALUES($1, $2, $3, $4)
+            INSERT INTO users (username, password, email)
+            VALUES($1, $2, $3)
             ON CONFLICT (username) DO NOTHING
-            RETURNING id, username, email, tagname;
+            RETURNING id, username, email;
             `,
-      [username, password, email, tagname]
+      [username, password, email]
     );
     return user;
   } catch (error) {

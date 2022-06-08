@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { registerNewUser } from "../../axios";
 import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const RegisterUser = ({
   username,
@@ -118,15 +119,17 @@ const RegisterUser = ({
             </button>
             <hr className="my-4"></hr>
             <h2 className="fs-5 fw-bold mb-3"> Already a member?</h2>
-            <button
-              className="w-100 py-2 mb-2 btn btn-outline-dark rounded-3"
-              type="submit"
-              onClick={() => {
-                setIsRegistered(false);
-              }}
-            >
-              Register a New Account
-            </button>
+            <Link to="/login" className="nav-link">
+              <button
+                className="w-100 py-2 mb-2 btn btn-outline-dark rounded-3"
+                type="submit"
+                onClick={() => {
+                  setIsRegistered(false);
+                }}
+              >
+                Return to Login
+              </button>
+            </Link>
           </form>
         </div>
       </div>
