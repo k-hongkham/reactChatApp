@@ -14,7 +14,8 @@ async function buildTables() {
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
             username varchar(255) UNIQUE NOT NULL,
-            password varchar(255) NOT NULL
+            password varchar(255) NOT NULL,
+            email varchar(255) UNIQUE
         );
         `);
 
@@ -28,7 +29,9 @@ async function buildTables() {
 async function createInitialUsers() {
   try {
     console.log("Starting to create users...");
-    const usersToCreate = [{ username: "kevin", password: "kevin" }];
+    const usersToCreate = [
+      { username: "kevin", password: "kevin", email: "kevin@kevin.com" },
+    ];
     const users = await Promise.all(usersToCreate.map(User.createUser));
     console.log("Finished creating users!");
   } catch (error) {

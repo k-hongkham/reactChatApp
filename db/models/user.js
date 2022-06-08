@@ -3,6 +3,7 @@ const client = require("../client");
 module.exports = {
   createUser,
   getUserByUsername,
+  createNewUser,
 };
 
 async function createUser({ username, password }) {
@@ -35,6 +36,23 @@ async function getUserByUsername(username) {
             WHERE username =$1;
             `,
       [username]
+    );
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+async function createNewUser({ username, password, email }) {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+    INSERT INTO users(username, password, email)
+    VALUES($1,$2,$3)
+    ON CONFLICT (username) DO NOTHING
+    RETURNING id, username, email`,
+      [username, password, email]
     );
     return user;
   } catch (error) {
