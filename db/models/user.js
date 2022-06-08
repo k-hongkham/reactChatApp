@@ -13,7 +13,7 @@ async function createUser({ username, password }) {
       `
             INSERT INTO users (username, password)
             VALUES($1, $2)
-            ON CONFLICT (username) DO NOTHIGN
+            ON CONFLICT (username) DO NOTHING
             RETURNING id, username;
             `,
       [username, password]
