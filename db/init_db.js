@@ -1,4 +1,4 @@
-const { client, User } = require(".");
+const { client, User } = require("./");
 
 async function buildTables() {
   try {
@@ -6,7 +6,7 @@ async function buildTables() {
     console.log("Started dropping tables");
 
     await client.query(`
-        DROP TABLE IF EXISTS users
+        DROP TABLE IF EXISTS users;
         `);
     console.log("Finished dropping tables");
 
@@ -14,9 +14,8 @@ async function buildTables() {
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
             username varchar(255) UNIQUE NOT NULL,
-            password carchar(255) NOT NULL,
-
-        )
+            password varchar(255) NOT NULL
+        );
         `);
 
     console.log("Finished creating tables");
@@ -29,7 +28,7 @@ async function buildTables() {
 async function createInitialUsers() {
   try {
     console.log("Starting to create users...");
-    const usersToCreate = [{ username: "Kevin", password: "Kevin" }];
+    const usersToCreate = [{ username: "kevin", password: "kevin" }];
     const users = await Promise.all(usersToCreate.map(User.createUser));
     console.log("Finished creating users!");
   } catch (error) {

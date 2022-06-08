@@ -20,7 +20,7 @@ usersRouter.post("/login", async (req, res, next) => {
       console.log("LOGIN SUCCESS");
       const token = jwt.sign(
         { id: user.id, username: username },
-        porocess.env.JWT_SECRET,
+        process.env.JWT_SECRET,
         { expiresIn: "4w" }
       );
     } else {
