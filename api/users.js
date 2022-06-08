@@ -2,8 +2,8 @@ const usersRouter = require("express").Router();
 
 const { createUser, getUserByUsername } = require("../db/models/user");
 const jwt = require("jsonwebtoken");
-const models = require("../db/models");
 const { JWT_SECRET } = process.env;
+const { requireUser } = require("./utils");
 
 usersRouter.use("/", (req, res, next) => {
   console.log("Request to /users is being made.");
@@ -16,13 +16,14 @@ usersRouter.post("/login", async (req, res, next) => {
     const user = await getUserByUsername(username);
     console.log("USER:", user);
 
-    if (user) {
+    if (user && password) {
       console.log("LOGIN SUCCESS");
       const token = jwt.sign(
         { id: user.id, username: username },
         process.env.JWT_SECRET,
         { expiresIn: "4w" }
       );
+      res.send({ message: `Welcome Back, ${user.username}.`, token: token });
     } else {
       console.log("LOGIN FAILED");
       res.status(409);
@@ -53,26 +54,29 @@ usersRouter.post("/register", async (req, res, next) => {
         username,
         password,
       });
-      console.log(user)
-      const token = jwt.sign({
+      console.log(user);
+      const token = jwt.sign(
+        {
           id: user.id,
-          username
-      }, process.env.JWT_SECRET, 
-      {
-          expiresIn: '4w'
-      }
-      )
-      res,=.send({
-          message: `Thanks for registering, ${username}.`, token
-      })
+          username,
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "4w",
+        }
+      );
+      res.send({
+        message: `Thanks for registering, ${username}.`,
+        token,
+      });
     }
-  } catch ({name, message}) {
-      res.status(404);
-      next({name, message})
+  } catch ({ name, message }) {
+    res.status(404);
+    next({ name, message });
   }
 });
 
-usersRouter.get('/me', requireUser, (req,res, next) => {
-    res.send(req.user)
-})
-models.exports = usersRouter;
+usersRouter.get("/me", requireUser, (req, res, next) => {
+  res.send(req.user);
+});
+module.exports = usersRouter;

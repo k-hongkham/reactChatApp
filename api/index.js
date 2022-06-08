@@ -1,5 +1,6 @@
 const apiRouter = require("express").Router();
 const usersRouter = require("./users");
+const { getUserByUsername } = require("../db/models/user");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 
@@ -34,9 +35,21 @@ apiRouter.use(async (req, res, next) => {
     res.status(409);
     next({
       name: "AuthorizationHeaderError",
-      message: "Authorization token must start with ${prefix}",
+      message: `Authorization token must start with ${prefix}`,
     });
   }
+});
+
+apiRouter.get("/", (req, res, next) => {
+  res.send({
+    message: "specify an api route to proceed",
+  });
+});
+
+apiRouter.get("/health", (req, res, next) => {
+  res.send({
+    healthy: true,
+  });
 });
 
 apiRouter.use("/users", usersRouter);

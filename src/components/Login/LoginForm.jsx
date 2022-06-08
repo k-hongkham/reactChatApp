@@ -14,8 +14,10 @@ const LoginForm = ({
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
       const response = await userLogin(username, password);
+      console.log("RESPONSE ON SUBMIT", response);
 
       localStorage.setItem("token", response.token);
       setToken(response.token);
