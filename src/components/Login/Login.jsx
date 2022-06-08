@@ -9,7 +9,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   return (
-    <div id="login_portal">
+    <div>
       <LoginForm
         username={username}
         setUsername={setUsername}
