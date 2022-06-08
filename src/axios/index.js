@@ -1,5 +1,15 @@
 import axios from "axios";
 
+export const apiHealth = async () => {
+  try {
+    const { data } = await axios.get("/api/health");
+    return data;
+  } catch (err) {
+    console.error(err);
+    return { healthy: false };
+  }
+};
+
 export const getMe = async (token) => {
   try {
     const { data } = await axios.get(`/api/users/me`, {

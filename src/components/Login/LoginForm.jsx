@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { userLogin } from "../../axios";
 
-const LoginForm = (
+const LoginForm = ({
   username,
   setUsername,
   password,
   setPassword,
   isLoggedIn,
-  setIsLoggedIn
-) => {
+  setIsLoggedIn,
+}) => {
   const { setToken } = useAuth();
 
   const handleLogin = async (e) => {
