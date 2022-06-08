@@ -56,7 +56,7 @@ apiRouter.use("/users", usersRouter);
 
 apiRouter.use((error, req, res, next) => {
   console.log("SENDING ERROR: ", error);
-  req.send(error);
+  res.send(error);
 });
 
 module.exports = apiRouter;

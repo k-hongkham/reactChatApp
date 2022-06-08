@@ -8,7 +8,6 @@ server.use(cors());
 
 // create  logs for everything
 const morgan = require("morgan");
-const { Next } = require("react-bootstrap/esm/PageItem");
 server.use(morgan("dev"));
 
 // handle application/json requests
