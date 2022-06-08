@@ -3,21 +3,21 @@ const client = require("../client");
 module.exports = {
   createUser,
   getUserByUsername,
-  createNewUser,
+  getUserByEmail,
 };
 
-async function createUser({ username, password }) {
+async function createUser({ username, password, email, tagname }) {
   try {
     const {
       rows: [user],
     } = await client.query(
       `
-            INSERT INTO users (username, password)
-            VALUES($1, $2)
+            INSERT INTO users (username, password, email, tagname)
+            VALUES($1, $2, $3, $4)
             ON CONFLICT (username) DO NOTHING
-            RETURNING id, username;
+            RETURNING id, username, email, tagname;
             `,
-      [username, password]
+      [username, password, email, tagname]
     );
     return user;
   } catch (error) {
@@ -42,17 +42,18 @@ async function getUserByUsername(username) {
     throw error;
   }
 }
-async function createNewUser({ username, password, email }) {
+
+async function getUserByEmail(email) {
   try {
     const {
       rows: [user],
     } = await client.query(
       `
-    INSERT INTO users(username, password, email)
-    VALUES($1,$2,$3)
-    ON CONFLICT (username) DO NOTHING
-    RETURNING id, username, email`,
-      [username, password, email]
+    SELECT *
+    FROM users
+    WHERE email=$1;
+    `,
+      [email]
     );
     return user;
   } catch (error) {
