@@ -49,3 +49,17 @@ export const userLogin = async (username, password) => {
     throw error.response.data;
   }
 };
+
+export async function registerNewUser(username, password, email) {
+  try {
+    const { response } = await axios.post("/api/users/registerNewUser", {
+      username,
+      password,
+      email,
+    });
+    console.log("is api responding?", response.data);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
