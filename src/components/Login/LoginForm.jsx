@@ -8,7 +8,6 @@ const LoginForm = ({
   setUsername,
   password,
   setPassword,
-  isLoggedIn,
   setIsLoggedIn,
   setIsRegistered,
 }) => {
@@ -24,7 +23,7 @@ const LoginForm = ({
       localStorage.setItem("token", response.token);
       setToken(response.token);
 
-      setIsLoggedIn(false);
+      setIsLoggedIn(true);
     } catch (error) {
       throw error;
     }
@@ -54,13 +53,14 @@ const LoginForm = ({
             </div>
             <div className="form-floating mb-3">
               <input
-                type="text"
+                type="password"
                 className="form-control rounded-3"
                 id="floatingPassword"
                 placeholder="Password"
                 name="login-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <label htmlFor="login-password floatingPassword">Password</label>
             </div>

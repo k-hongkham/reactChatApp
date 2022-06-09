@@ -8,11 +8,8 @@ const RegisterUser = ({
   setUsername,
   password,
   setPassword,
-  error,
   setError,
-  errorMessage,
   setErrorMessage,
-  isLoggedIn,
   setIsLoggedIn,
   setIsRegistered,
 }) => {
@@ -103,6 +100,7 @@ const RegisterUser = ({
                 onChange={(e) => {
                   setConfirmPW(e.target.value);
                 }}
+                required
               />
               <label htmlFor="confirm-password floatingConfirmPW">
                 {" "}
@@ -120,6 +118,7 @@ const RegisterUser = ({
                 onChange={(e) => {
                   setNewUserEmail(e.target.value);
                 }}
+                required
               />
               <label htmlFor="register-email floatingEmail">Email</label>
             </div>
