@@ -6,17 +6,17 @@ module.exports = {
   updateChannel,
 };
 
-async function createChannel({ channelId, name }) {
+async function createChannel({ name }) {
   try {
     const {
       rows: [channel],
     } = await client.query(
       `
-        INSERT INTO channels('channelId', name)
-        VALUES($1, $2)
+        INSERT INTO channels( name)
+        VALUES($1)
         RETURNING *;
         `,
-      [channelId, name]
+      [name]
     );
     return channel;
   } catch (error) {
