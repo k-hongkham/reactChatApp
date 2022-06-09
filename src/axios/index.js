@@ -63,3 +63,59 @@ export async function registerNewUser(username, password, email) {
     throw error.response.data;
   }
 }
+
+export const getAllChannels = async (token) => {
+  try {
+    const response = await axios.get(`api/channels/all`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const createChannel = async (token, channelId, name) => {
+  try {
+    const response = await axios.post(
+      `api/channels`,
+      {
+        channelId,
+        name,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const updateChannelName = async (channelId, token, name) => {
+  try {
+    const response = await axios.patch(
+      `api/channels/${channelId}`,
+      {
+        channelId,
+        name,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

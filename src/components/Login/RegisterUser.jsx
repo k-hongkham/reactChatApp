@@ -35,7 +35,7 @@ const RegisterUser = ({
         setError(false);
         localStorage.setItem("token", response.token);
         setToken(response.token);
-        setIsLoggedIn(false);
+        setIsLoggedIn(true);
       } else {
         setError(true);
         setErrorMessage("Password does not match.");
