@@ -54,7 +54,7 @@ apiRouter.get("/health", (req, res, next) => {
 });
 
 apiRouter.use("/users", usersRouter);
-apiRouter.use("/channels", channelsRouter);
+// apiRouter.use("/channels", channelsRouter);
 
 apiRouter.use((error, req, res, next) => {
   console.log("SENDING ERROR: ", error);

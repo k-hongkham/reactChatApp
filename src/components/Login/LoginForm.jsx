@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { userLogin } from "../../axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = ({
   username,
@@ -10,19 +10,28 @@ const LoginForm = ({
   setPassword,
   setIsLoggedIn,
   setIsRegistered,
+  setError,
+  setErrorMessage,
 }) => {
   const { setToken } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setError(false);
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await userLogin(username, password);
       console.log("RESPONSE ON SUBMIT", response);
+      setError(false);
       localStorage.setItem("token", response.token);
       setToken(response.token);
       setIsLoggedIn(true);
     } catch (error) {
-      throw error;
+      setError(true);
+      setErrorMessage(error.message);
     }
   };
 
