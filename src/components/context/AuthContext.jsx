@@ -33,6 +33,8 @@ const AuthProvider = ({ children }) => {
         setUser,
         token,
         setToken,
+        allUsers,
+        setAllUsers,
       }}
     >
       {children}
