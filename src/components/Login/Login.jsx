@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterUser from "./RegisterUser";
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = ({ setLoggedIn, loggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  console.log("logging In", loggedIn);
   return (
     <div>
       {isRegistered ? (
@@ -21,7 +21,7 @@ const Login = ({ setIsLoggedIn }) => {
           setError={setError}
           errorMessage={errorMessage}
           setErrorMessage={setErrorMessage}
-          setIsLoggedIn={setIsLoggedIn}
+          setLoggedIn={setLoggedIn}
           setIsRegistered={setIsRegistered}
         />
       ) : (
@@ -30,7 +30,7 @@ const Login = ({ setIsLoggedIn }) => {
           setUsername={setUsername}
           password={password}
           setPassword={setPassword}
-          setIsLoggedIn={setIsLoggedIn}
+          setLoggedIn={setLoggedIn}
           error={error}
           setError={setError}
           errorMessage={errorMessage}

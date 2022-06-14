@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { userLogin } from "../../axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const LoginForm = ({
   username,
   setUsername,
   password,
   setPassword,
-  setIsLoggedIn,
+  setLoggedIn,
   setIsRegistered,
   setError,
   setErrorMessage,
 }) => {
-  const { setToken } = useAuth();
-  const navigate = useNavigate();
+  const { setToken, user } = useAuth();
 
   useEffect(() => {
     setError(false);
@@ -28,7 +27,7 @@ const LoginForm = ({
       setError(false);
       localStorage.setItem("token", response.token);
       setToken(response.token);
-      setIsLoggedIn(true);
+      setLoggedIn(true);
     } catch (error) {
       setError(true);
       setErrorMessage(error.message);

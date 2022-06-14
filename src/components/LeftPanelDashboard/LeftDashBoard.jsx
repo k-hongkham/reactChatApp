@@ -4,15 +4,15 @@ import Channels from "./Channels";
 const LeftDashBoard = () => {
   return (
     <div
-      className="leftSideBarContainer col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
-      style={{ width: "250px", border: "2px solid black", height: "100vh" }}
+      className="leftSideBarContainer flex-shrink-0 p-3 bg-white "
+      style={{ width: "280px", border: "2px solid black" }}
     >
       <div className="position-sticky pt-3">
         <div className="d-flex flex-column p-3 bg-white">
           <ul className="list-unstyled ps-0">
-            <li>adssad</li>
-            <li>555</li>
-            <li>47dfdsdsfsddfd1</li>
+            <li>ad6541654654d</li>
+            <li>5asdfadsfadsfa</li>
+            <li>87967498798789</li>
             <li>777</li>
           </ul>
         </div>
