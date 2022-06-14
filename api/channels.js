@@ -1,6 +1,9 @@
 const channelsRouter = require("express").Router();
-
-const { Channel } = require("../db/models");
+const {
+  createChannel,
+  getAllChannels,
+  updateChannel,
+} = require("../db/models/channel");
 
 channelsRouter.use("/", (req, res, next) => {
   console.log("A request is being made to /channels");
@@ -16,6 +19,16 @@ channelsRouter.use("/", (req, res, next) => {
 //     next({ name, message });
 //   }
 // });
+
+channelsRouter.get("/", async (req, res, next) => {
+  try {
+    const openChannels = await getAllChannels();
+    res.send(openChannels);
+  } catch ({ name, message }) {
+    res.status(409);
+    next({ name, messages });
+  }
+});
 
 channelsRouter.post("/", async (req, res, next) => {
   const { name } = req.body;
