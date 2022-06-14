@@ -20,6 +20,7 @@ async function buildTables() {
         );
         CREATE TABLE channels (
             id SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users(id),
             name varchar(255) NOT NULL
         );
         `);
@@ -48,7 +49,7 @@ async function createInitialUsers() {
 async function createInitalChannels() {
   try {
     console.log("Starting to create channels....");
-    const channelsToCreate = [{ name: "testChannel" }];
+    const channelsToCreate = [{ userId: 1, name: "testChannel" }];
     const channels = await Promise.all(
       channelsToCreate.map(Channel.createChannel)
     );

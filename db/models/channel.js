@@ -6,22 +6,37 @@ module.exports = {
   updateChannel,
 };
 
-async function createChannel({ name }) {
+async function createChannel({ userId, name }) {
   try {
     const {
       rows: [channel],
     } = await client.query(
       `
-        INSERT INTO channels( name)
-        VALUES($1)
-        RETURNING *;
+        INSERT INTO channels("userId",name)
+        VALUES($1, $2)
+        RETURNING channels.id as "channelId",*;
         `,
-      [name]
+      [userId, name]
     );
     return channel;
   } catch (error) {
     throw error;
   }
+}
+
+async function getUserChannels(userId) {
+  try {
+    const { rows } = await client.query(
+      `
+    SELECT
+    "userId", channels.id as "channelId"
+    FROM channels
+    LEFT JOIN users ON channels."userId" = users.id
+    WHERE "userId"=$1    
+    `,
+      [userId]
+    );
+  } catch (error) {}
 }
 
 async function getAllChannels() {

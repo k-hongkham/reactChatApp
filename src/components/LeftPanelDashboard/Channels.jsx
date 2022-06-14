@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth";
 
 const Channels = () => {
   const [channels, setChannels] = useState([]);
-  const { user, token } = useAuth();
+  const { token } = useAuth();
   useEffect(() => {
     const userChannels = async () => {
       const response = await getAllChannels(token);

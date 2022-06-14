@@ -4,6 +4,7 @@ const {
   getAllChannels,
   updateChannel,
 } = require("../db/models/channel");
+const { requireUser } = require("./utils");
 
 channelsRouter.use("/", (req, res, next) => {
   console.log("A request is being made to /channels");
@@ -20,7 +21,7 @@ channelsRouter.use("/", (req, res, next) => {
 //   }
 // });
 
-channelsRouter.get("/", async (req, res, next) => {
+channelsRouter.get("/all", requireUser, async (req, res, next) => {
   try {
     const openChannels = await getAllChannels();
     res.send(openChannels);
