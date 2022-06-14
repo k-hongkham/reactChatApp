@@ -11,7 +11,7 @@ const App = () => {
     <Router>
       <AuthProvider>
         {loggedIn ? (
-          <LeftDashBoard />
+          <LeftDashBoard setLoggedIn={setLoggedIn} />
         ) : (
           <Login setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
         )}

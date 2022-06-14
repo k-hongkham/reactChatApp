@@ -8,7 +8,7 @@ const Login = ({ setLoggedIn, loggedIn }) => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  console.log("logging In", loggedIn);
+
   return (
     <div>
       {isRegistered ? (

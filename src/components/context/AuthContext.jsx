@@ -7,6 +7,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [allUsers, setAllUsers] = useState([]);
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // const getAllTheUsers = async () => {
   //   const users = await getAllUsers(token);

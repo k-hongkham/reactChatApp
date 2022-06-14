@@ -1,7 +1,7 @@
 import React from "react";
 
 const Channels = () => {
-  return <div>123</div>;
+  return <div>Channels</div>;
 };
 
 export default Channels;
