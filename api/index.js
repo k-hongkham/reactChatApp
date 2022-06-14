@@ -9,6 +9,7 @@ apiRouter.use(async (req, res, next) => {
   console.log("Checking for authorization...");
   const prefix = `Bearer `;
   const auth = req.header("Authorization");
+
   if (!auth) {
     console.log("No auth provided. Continuing.");
     next();

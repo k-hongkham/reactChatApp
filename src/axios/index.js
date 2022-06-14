@@ -28,7 +28,7 @@ export const getAllUsers = async (token) => {
   try {
     const { data } = await axios.get(`/api/users/all`, {
       heards: {
-        "Contect-Type": "application/json",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
