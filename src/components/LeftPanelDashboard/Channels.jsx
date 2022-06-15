@@ -1,14 +1,16 @@
 import React, { useState, Fragment, useEffect } from "react";
-import { getAllChannels } from "../../axios";
+import { getAllChannels, getUserChannels } from "../../axios";
 import useAuth from "../hooks/useAuth";
 import CreateChannel from "./CreateChannel";
 
 const Channels = () => {
   const [channels, setChannels] = useState([]);
-  const { token } = useAuth();
+  const { token, user } = useAuth();
+
   useEffect(() => {
+    console.log("user.id and token", user.id, token);
     const userChannels = async () => {
-      const response = await getAllChannels(token);
+      const response = await getUserChannels(user.id, token);
       setChannels(response);
     };
     userChannels();

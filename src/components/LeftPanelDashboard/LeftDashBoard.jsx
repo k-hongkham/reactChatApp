@@ -4,7 +4,7 @@ import Channels from "./Channels";
 import useAuth from "../hooks/useAuth";
 
 const LeftDashBoard = () => {
-  const { user, setToken } = useAuth();
+  const { user } = useAuth();
   return (
     <div
       className="leftSideBarContainer flex-shrink-0 p-3 bg-white "

@@ -3,6 +3,7 @@ const {
   createChannel,
   getAllChannels,
   updateChannel,
+  getUserChannel,
 } = require("../db/models/channel");
 const { requireUser } = require("./utils");
 
@@ -20,6 +21,16 @@ channelsRouter.use("/", (req, res, next) => {
 //     next({ name, message });
 //   }
 // });
+
+channelsRouter.get(`/:userId`, async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+    const userChannels = await getUserChannel(userId);
+    res.send(userChannels);
+  } catch ({ name, message }) {
+    throw { name, message };
+  }
+});
 
 channelsRouter.get("/all", requireUser, async (req, res, next) => {
   try {

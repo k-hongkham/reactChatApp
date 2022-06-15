@@ -27,7 +27,7 @@ export const getMe = async (token) => {
 export const getAllUsers = async (token) => {
   try {
     const { data } = await axios.get(`/api/users/all`, {
-      heards: {
+      headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
@@ -35,6 +35,21 @@ export const getAllUsers = async (token) => {
     return data;
   } catch (error) {
     throw error.response.data;
+  }
+};
+
+export const getUserChannels = async (userId, token) => {
+  try {
+    const response = await axios.get(`/api/users/${userId}/channels`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("axios user channel", response);
+    return response;
+  } catch (error) {
+    throw error;
   }
 };
 
@@ -64,12 +79,11 @@ export async function registerNewUser(username, password, email) {
   }
 }
 
-export const getAllChannels = async (token) => {
+export const getAllChannels = async () => {
   try {
     const response = await axios.get(`api/channels/all`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `bearer ${token}`,
       },
     });
     return response.data;

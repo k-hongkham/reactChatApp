@@ -4,6 +4,7 @@ module.exports = {
   createChannel,
   getAllChannels,
   updateChannel,
+  getUserChannels,
 };
 
 async function createChannel({ userId, name }) {
