@@ -37,7 +37,10 @@ async function getUserChannels(userId) {
     `,
       [userId]
     );
-  } catch (error) {}
+    return rows;
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function getAllChannels() {

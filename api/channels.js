@@ -22,11 +22,12 @@ channelsRouter.use("/", (req, res, next) => {
 //   }
 // });
 
-channelsRouter.get(`/:userId`, async (req, res, next) => {
+channelsRouter.get(`/:userId/channels`, async (req, res, next) => {
   try {
     const { userId } = req.body;
     const userChannels = await getUserChannel(userId);
     res.send(userChannels);
+    console.log(" ********************inside api", userId.req.body);
   } catch ({ name, message }) {
     throw { name, message };
   }
@@ -70,3 +71,5 @@ channelsRouter.patch("/:channelId", async (req, res, next) => {
     next({ name, message });
   }
 });
+
+module.exports = channelsRouter;
