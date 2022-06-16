@@ -15,10 +15,11 @@ async function createChannel({ userId, name }) {
       `
         INSERT INTO channels("userId",name)
         VALUES($1, $2)
-        RETURNING channels.id as "channelId",*;
+        RETURNING channels.id as "channelId","userId", name;
         `,
       [userId, name]
     );
+    console.log("creating new channel", channel);
     return channel;
   } catch (error) {
     throw error;
@@ -30,13 +31,14 @@ async function getUserChannels(userId) {
     const { rows } = await client.query(
       `
     SELECT
-    "userId", channels.id as "channelId"
+     channels.id as "channelId","userId"
     FROM channels
     LEFT JOIN users ON channels."userId" = users.id
     WHERE "userId"=$1    
     `,
       [userId]
     );
+    console.group("getting user Channel", rows);
     return rows;
   } catch (error) {
     throw error;

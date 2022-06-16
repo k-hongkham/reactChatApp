@@ -18,7 +18,8 @@ const Channels = () => {
   return (
     <div className="channels-container">
       <h2>Channels</h2>
-      <CreateChannel setChannels={setChannels} channel={channels} />
+      <h3>{channels.name}</h3>
+      {/* <CreateChannel setChannels={setChannels} channel={channels} /> */}
       {channels.length > 0
         ? channels.map((channel, idx) => {
             return (

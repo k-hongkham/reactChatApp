@@ -10,7 +10,7 @@ async function buildTables() {
         DROP TABLE IF EXISTS users;
         `);
     console.log("Finished dropping tables");
-
+    console.log("Started creating tables");
     await client.query(`
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
@@ -49,7 +49,10 @@ async function createInitialUsers() {
 async function createInitalChannels() {
   try {
     console.log("Starting to create channels....");
-    const channelsToCreate = [{ userId: 1, name: "testChannel" }];
+    const channelsToCreate = [
+      { userId: 1, name: "testChannel" },
+      { userId: 1, name: "testChannel2" },
+    ];
     const channels = await Promise.all(
       channelsToCreate.map(Channel.createChannel)
     );

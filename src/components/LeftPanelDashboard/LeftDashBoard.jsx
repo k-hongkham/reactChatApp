@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LogOutBtn from "../Login/LogOutBtn";
 import Channels from "./Channels";
 import useAuth from "../hooks/useAuth";
+import { getMe } from "../../axios";
 
 const LeftDashBoard = () => {
   const { user } = useAuth();
+
   return (
     <div
       className="leftSideBarContainer flex-shrink-0 p-3 bg-white "

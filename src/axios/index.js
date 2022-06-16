@@ -18,6 +18,7 @@ export const getMe = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log("axios getMe", data);
     return data;
   } catch (error) {
     throw error.response.data;
@@ -40,13 +41,13 @@ export const getAllUsers = async (token) => {
 
 export const getUserChannels = async (userId, token) => {
   try {
-    const response = await axios.get(`/api/users/${userId}/channels`, {
+    const response = await axios.get(`/api/channels/${userId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("axios user channel", response);
+    console.log("axios get user channel", response);
     return response;
   } catch (error) {
     throw error;

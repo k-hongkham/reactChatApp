@@ -17,6 +17,8 @@ const AuthProvider = ({ children }) => {
     const getUser = async () => {
       if ("token" in localStorage) {
         console.log("token is here in local storage");
+        const user = await getMe(token);
+        setUser(user);
       }
       if (localStorage.getItem("token")) {
         const user = await getMe(token);

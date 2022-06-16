@@ -1,9 +1,10 @@
 const channelsRouter = require("express").Router();
+const { restart } = require("nodemon");
 const {
   createChannel,
   getAllChannels,
   updateChannel,
-  getUserChannel,
+  getUserChannels,
 } = require("../db/models/channel");
 const { requireUser } = require("./utils");
 
@@ -12,24 +13,15 @@ channelsRouter.use("/", (req, res, next) => {
   next();
 });
 
-// channelsRouter.get("/all", async (req, res, next) => {
-//   try {
-//     const allChannels = await getAllChannels();
-//     res.send(allChannels);
-//   } catch ({ name, message }) {
-//     res.status(409);
-//     next({ name, message });
-//   }
-// });
-
-channelsRouter.get(`/:userId/channels`, async (req, res, next) => {
+channelsRouter.get(`/:userId`, requireUser, async (req, res, next) => {
   try {
-    const { userId } = req.body;
-    const userChannels = await getUserChannel(userId);
+    const { userId } = req.params;
+    const userChannels = await getUserChannels(userId);
+    console.log(" ********************inside api", req.params.userId);
     res.send(userChannels);
-    console.log(" ********************inside api", userId.req.body);
   } catch ({ name, message }) {
-    throw { name, message };
+    res.status(409);
+    next({ name, message });
   }
 });
 

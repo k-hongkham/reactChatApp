@@ -20,6 +20,7 @@ async function createUser({ username, password, email }) {
             `,
       [username, password, email]
     );
+    console.log("creating new user", user);
     return user;
   } catch (error) {
     throw error;
