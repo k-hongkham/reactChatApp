@@ -31,7 +31,7 @@ async function getUserChannels(userId) {
     const { rows } = await client.query(
       `
     SELECT
-     channels.id as "channelId","userId"
+     channels.id as "channelId","userId", name
     FROM channels
     LEFT JOIN users ON channels."userId" = users.id
     WHERE "userId"=$1    

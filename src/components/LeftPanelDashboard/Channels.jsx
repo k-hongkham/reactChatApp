@@ -11,7 +11,9 @@ const Channels = () => {
     console.log("user.id and token", user.id, token);
     const userChannels = async () => {
       const response = await getUserChannels(user.id, token);
-      setChannels(response);
+      console.log("getting user channels in component", response.data);
+      console.log("are we getting channel name?", channels.name);
+      setChannels(response.data);
     };
     userChannels();
   }, [token]);
