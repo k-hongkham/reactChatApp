@@ -12,7 +12,7 @@ const Channels = () => {
     const userChannels = async () => {
       const response = await getUserChannels(user.id, token);
       console.log("getting user channels in component", response.data);
-      console.log("are we getting channel name?", channels.name);
+
       setChannels(response.data);
     };
     userChannels();
@@ -21,7 +21,7 @@ const Channels = () => {
     <div className="channels-container">
       <h2>Channels</h2>
       <h3>{channels.name}</h3>
-      {/* <CreateChannel setChannels={setChannels} channel={channels} /> */}
+      <CreateChannel setChannels={setChannels} channels={channels} />
       {channels.length > 0
         ? channels.map((channel, idx) => {
             return (

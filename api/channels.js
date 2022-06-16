@@ -1,5 +1,5 @@
 const channelsRouter = require("express").Router();
-const { restart } = require("nodemon");
+
 const {
   createChannel,
   getAllChannels,
@@ -35,15 +35,15 @@ channelsRouter.get("/all", requireUser, async (req, res, next) => {
   }
 });
 
-channelsRouter.post("/", async (req, res, next) => {
-  const { name } = req.body;
-  const channelsData = {
-    name,
-  };
+channelsRouter.post("/addChannel", requireUser, async (req, res, next) => {
+  const { userId, name } = req.body;
+
   try {
-    const channel = await createChannel(channelsData);
+    const channel = await createChannel({ userId, name });
+    console.log("*******api channels", req.body.userId);
     res.send(channel);
   } catch ({ name, message }) {
+    res.status(409);
     next({ name, message });
   }
 });

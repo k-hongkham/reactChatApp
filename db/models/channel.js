@@ -15,7 +15,7 @@ async function createChannel({ userId, name }) {
       `
         INSERT INTO channels("userId",name)
         VALUES($1, $2)
-        RETURNING channels.id as "channelId","userId", name;
+        RETURNING *;
         `,
       [userId, name]
     );

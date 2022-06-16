@@ -1,23 +1,29 @@
 import React, { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
-import { createChannel, getAllChannels } from "../../axios";
+import { createChannel, getUserChannels } from "../../axios";
 
-const CreateChannel = ({ setChannels, channel }) => {
+const CreateChannel = ({ setChannels, channels }) => {
   const navigate = useNavigate();
   const { user, token } = useAuth();
   const [channelName, setChannelName] = useState("");
 
   const handleChannelCreate = (e) => {
     e.preventDefault();
-    const getChannelDetails = async (e) => {
-      const newChannelDetails = await createChannel(user.id, channelName);
+    console.log("looking at channels", channels);
+    const getChannelDetails = async () => {
+      const newChannelDetails = await createChannel(
+        token,
+        user.id,
+        channelName
+      );
+      const newChannelsArray = [newChannelDetails, ...channels];
 
-      const newChannelsArray = [newChannelDetails, ...channel];
+      console.log("is new channel being made?", channels);
       setChannels(newChannelsArray);
     };
     getChannelDetails();
-    getAllChannels();
+    getUserChannels(user.id, token);
   };
   return (
     <div>

@@ -93,12 +93,12 @@ export const getAllChannels = async () => {
   }
 };
 
-export const createChannel = async (token, channelId, name) => {
+export const createChannel = async (token, userId, name) => {
   try {
     const response = await axios.post(
-      `api/channels`,
+      `api/channels/addChannel`,
       {
-        channelId,
+        userId,
         name,
       },
       {
@@ -108,6 +108,7 @@ export const createChannel = async (token, channelId, name) => {
         },
       }
     );
+    console.log("attempting to create new channel", userId, name);
     return response.data;
   } catch (error) {
     return error.response.data;
