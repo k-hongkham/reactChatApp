@@ -18,6 +18,7 @@ export const getMe = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log("axios getMe", data);
     return data;
   } catch (error) {
     throw error.response.data;
@@ -27,14 +28,29 @@ export const getMe = async (token) => {
 export const getAllUsers = async (token) => {
   try {
     const { data } = await axios.get(`/api/users/all`, {
-      heards: {
-        "Contect-Type": "application/json",
+      headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
     return data;
   } catch (error) {
     throw error.response.data;
+  }
+};
+
+export const getUserChannels = async (userId, token) => {
+  try {
+    const response = await axios.get(`/api/channels/${userId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("axios get user channel", response);
+    return response;
+  } catch (error) {
+    throw error;
   }
 };
 
@@ -63,3 +79,59 @@ export async function registerNewUser(username, password, email) {
     throw error.response.data;
   }
 }
+
+export const getAllChannels = async () => {
+  try {
+    const response = await axios.get(`api/channels/all`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const createChannel = async (token, userId, name) => {
+  try {
+    const response = await axios.post(
+      `api/channels/addChannel`,
+      {
+        userId,
+        name,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("attempting to create new channel", userId, name);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const updateChannelName = async (channelId, token, name) => {
+  try {
+    const response = await axios.patch(
+      `api/channels/${channelId}`,
+      {
+        channelId,
+        name,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

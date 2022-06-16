@@ -3,16 +3,21 @@ import "../style/App.css";
 import AuthProvider from "./context/AuthContext";
 import Login from "./Login/Login.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
+import LeftDashBoard from "./LeftPanelDashboard/LeftDashBoard";
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const App = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
   return (
     <Router>
       <AuthProvider>
-        <Login isLoggedIn={isLoggedIn} setisLoggedIn={setIsLoggedIn} />
+        {loggedIn ? (
+          <LeftDashBoard setLoggedIn={setLoggedIn} />
+        ) : (
+          <Login setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
+        )}
       </AuthProvider>
     </Router>
   );
-}
+};
 
 export default App;

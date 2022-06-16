@@ -4,6 +4,7 @@ module.exports = {
   createUser,
   getUserByUsername,
   getUserByEmail,
+  getAllUsers,
 };
 
 async function createUser({ username, password, email }) {
@@ -19,6 +20,7 @@ async function createUser({ username, password, email }) {
             `,
       [username, password, email]
     );
+    console.log("creating new user", user);
     return user;
   } catch (error) {
     throw error;
@@ -56,6 +58,18 @@ async function getUserByEmail(email) {
       [email]
     );
     return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getAllUsers() {
+  try {
+    const { rows } = await client.query(`
+    SELECT id, username
+    FROM users
+    `);
+    return rows;
   } catch (error) {
     throw error;
   }

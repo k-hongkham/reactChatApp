@@ -10,7 +10,7 @@ const RegisterUser = ({
   setPassword,
   setError,
   setErrorMessage,
-  setIsLoggedIn,
+  setLoggedIn,
   setIsRegistered,
 }) => {
   const { setToken } = useAuth();
@@ -35,7 +35,7 @@ const RegisterUser = ({
         setError(false);
         localStorage.setItem("token", response.token);
         setToken(response.token);
-        setIsLoggedIn(false);
+        setLoggedIn(true);
       } else {
         setError(true);
         setErrorMessage("Password does not match.");

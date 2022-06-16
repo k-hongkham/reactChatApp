@@ -5,4 +5,5 @@ module.exports = {
   // and User: require('./user') here
 
   User: require("./user"),
+  Channel: require("./channel"),
 };

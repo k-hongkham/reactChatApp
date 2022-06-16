@@ -1,5 +1,6 @@
 const apiRouter = require("express").Router();
 const usersRouter = require("./users");
+const channelsRouter = require("./channels");
 const { getUserByUsername } = require("../db/models/user");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
@@ -8,6 +9,7 @@ apiRouter.use(async (req, res, next) => {
   console.log("Checking for authorization...");
   const prefix = `Bearer `;
   const auth = req.header("Authorization");
+
   if (!auth) {
     console.log("No auth provided. Continuing.");
     next();
@@ -53,6 +55,7 @@ apiRouter.get("/health", (req, res, next) => {
 });
 
 apiRouter.use("/users", usersRouter);
+apiRouter.use("/channels", channelsRouter);
 
 apiRouter.use((error, req, res, next) => {
   console.log("SENDING ERROR: ", error);

@@ -8,24 +8,29 @@ const LoginForm = ({
   setUsername,
   password,
   setPassword,
-  setIsLoggedIn,
+  setLoggedIn,
   setIsRegistered,
+  setError,
+  setErrorMessage,
 }) => {
-  const { setToken } = useAuth();
+  const { setToken, user } = useAuth();
+
+  useEffect(() => {
+    setError(false);
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const response = await userLogin(username, password);
       console.log("RESPONSE ON SUBMIT", response);
-
+      setError(false);
       localStorage.setItem("token", response.token);
       setToken(response.token);
-
-      setIsLoggedIn(true);
+      setLoggedIn(true);
     } catch (error) {
-      throw error;
+      setError(true);
+      setErrorMessage(error.message);
     }
   };
 

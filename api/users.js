@@ -5,6 +5,7 @@ const {
   getUserByUsername,
   getUserByEmail,
   registerNewUser,
+  getAllUsers,
 } = require("../db/models/user");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
@@ -26,7 +27,7 @@ usersRouter.post("/login", async (req, res, next) => {
       const token = jwt.sign(
         { id: user.id, username: username },
         process.env.JWT_SECRET,
-        { expiresIn: "4w" }
+        { expiresIn: "1w" }
       );
       res.send({ message: `Welcome Back, ${user.username}.`, token: token });
     } else {
@@ -78,7 +79,7 @@ usersRouter.post("/registerNewUser", async (req, res, next) => {
         },
         process.env.JWT_SECRET,
         {
-          expiresIn: "4w",
+          expiresIn: "1w",
         }
       );
       res.send({
@@ -92,7 +93,18 @@ usersRouter.post("/registerNewUser", async (req, res, next) => {
   }
 });
 
+usersRouter.get("/all", requireUser, async (re, res, next) => {
+  try {
+    const users = await getAllUsers();
+    res.send(users);
+  } catch ({ name, message }) {
+    res.status(409);
+    next({ name, message });
+  }
+});
+
 usersRouter.get("/me", requireUser, (req, res, next) => {
   res.send(req.user);
 });
+
 module.exports = usersRouter;

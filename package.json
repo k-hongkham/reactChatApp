@@ -2,12 +2,11 @@
   "name": "react18-boiler-plate",
   "version": "0.1.0",
   "private": true,
+  "main": "index.js",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.1.3",
+    "concurrently": "^7.2.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
@@ -18,20 +17,22 @@
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-scripts": "^2.1.3",
+    "web-vitals": "^2.1.4",
+    "webpack-dev-middleware": "^5.3.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "postinstall": "npm run client:build",
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
     "server:dev": "nodemon index.js",
     "db:build": "node ./db/init_db",
-    "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\""
+    "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
+    "start": "node index.js",
+    "test": "jest --runInBand"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   },
   "eslintConfig": {
     "extends": [
