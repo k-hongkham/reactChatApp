@@ -38,7 +38,7 @@ async function getUserChannels(userId) {
     `,
       [userId]
     );
-    console.group("getting user Channel", rows);
+    console.log("getting user Channel", rows);
     return rows;
   } catch (error) {
     throw error;

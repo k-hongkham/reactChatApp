@@ -1,4 +1,4 @@
-const { client, User, Channel } = require("./");
+const { client, User, Channel, Chatrooms } = require("./");
 
 async function buildTables() {
   try {
@@ -7,6 +7,7 @@ async function buildTables() {
 
     await client.query(`
         DROP TABLE IF EXISTS channels;
+        DROP TABLE IF EXISTS chatrooms;
         DROP TABLE IF EXISTS users;
         `);
     console.log("Finished dropping tables");
@@ -18,11 +19,17 @@ async function buildTables() {
             password varchar(255) NOT NULL,
             email varchar(255) UNIQUE
         );
+        CREATE TABLE chatrooms (
+          id SERIAL PRIMARY KEY,
+          name varchar(255) NOT NULL
+      );
         CREATE TABLE channels (
             id SERIAL PRIMARY KEY,
             "userId" INTEGER REFERENCES users(id),
+            
             name varchar(255) NOT NULL
         );
+       
         `);
 
     console.log("Finished creating tables");
@@ -46,7 +53,7 @@ async function createInitialUsers() {
   }
 }
 
-async function createInitalChannels() {
+async function createInitialChannels() {
   try {
     console.log("Starting to create channels....");
     const channelsToCreate = [
@@ -63,8 +70,23 @@ async function createInitalChannels() {
   }
 }
 
+async function createInitialChatrooms() {
+  try {
+    console.log("Starting to create chatrooms ....");
+    const chatroomsToCreate = [{ name: "chatroom1" }];
+    const chatrooms = await Promise.all(
+      chatroomsToCreate.map(Chatrooms.createChatroom)
+    );
+    console.error("Finished creating chatrooms!");
+  } catch (error) {
+    console.error("Error creating chatrooms!");
+    throw error;
+  }
+}
+
 buildTables()
   .then(createInitialUsers)
-  .then(createInitalChannels)
+  .then(createInitialChannels)
+  .then(createInitialChatrooms)
   .catch(console.error)
   .finally(() => client.end);

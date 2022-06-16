@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { getAllChannels, getUserChannels } from "../../axios";
 import useAuth from "../hooks/useAuth";
+import ChatRooms from "./ChatRooms";
 import CreateChannel from "./CreateChannel";
 
 const Channels = () => {
@@ -27,6 +28,7 @@ const Channels = () => {
             return (
               <div key={`userGeneratedChannels: ${idx}`}>
                 <h3>{channel.name}</h3>
+                <ChatRooms />
               </div>
             );
           })
