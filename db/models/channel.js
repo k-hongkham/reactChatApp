@@ -7,17 +7,17 @@ module.exports = {
   getUserChannels,
 };
 
-async function createChannel({ userId, chatroomsId, name }) {
+async function createChannel({ userId, name }) {
   try {
     const {
       rows: [channel],
     } = await client.query(
       `
-        INSERT INTO channels("userId", "chatroomsId",name)
-        VALUES($1, $2, $3)
+        INSERT INTO channels("userId", name)
+        VALUES($1, $2)
         RETURNING *;
         `,
-      [userId, chatroomsId, name]
+      [userId, name]
     );
     console.log("creating new channel", channel);
     return channel;

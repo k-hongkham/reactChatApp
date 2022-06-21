@@ -26,7 +26,6 @@ async function buildTables() {
         CREATE TABLE channels (
             id SERIAL PRIMARY KEY,
             "userId" INTEGER REFERENCES users(id) ON DELETE CASCADE,
-            "chatroomsId" INTEGER REFERENCES chatrooms(id) ON DELETE CASCADE,
             name varchar(255) NOT NULL
         );
        
