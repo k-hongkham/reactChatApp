@@ -7,17 +7,17 @@ module.exports = {
   getUserChannels,
 };
 
-async function createChannel({ userId, name }) {
+async function createChannel({ userId, chatroomsId, name }) {
   try {
     const {
       rows: [channel],
     } = await client.query(
       `
-        INSERT INTO channels("userId",name)
-        VALUES($1, $2)
+        INSERT INTO channels("userId", "chatroomsId",name)
+        VALUES($1, $2, $3)
         RETURNING *;
         `,
-      [userId, name]
+      [userId, chatroomsId, name]
     );
     console.log("creating new channel", channel);
     return channel;
@@ -31,7 +31,7 @@ async function getUserChannels(userId) {
     const { rows } = await client.query(
       `
     SELECT
-     channels.id as "channelId","userId", name
+     channels.id as "channelId","userId",channels.chatroomsId AS "chatroomsId", name
     FROM channels
     LEFT JOIN users ON channels."userId" = users.id
     WHERE "userId"=$1    
