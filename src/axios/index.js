@@ -135,3 +135,21 @@ export const updateChannelName = async (channelId, token, name) => {
     return error;
   }
 };
+
+export const addChatroomToChannel = async (token, channelId, chatroomId) => {
+  try {
+    const response = await axios.post(
+      `api/channel/addChatroom`,
+      { channelId, chatroomId },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

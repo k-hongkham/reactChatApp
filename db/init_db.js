@@ -26,6 +26,7 @@ async function buildTables() {
         CREATE TABLE channels (
             id SERIAL PRIMARY KEY,
             "userId" INTEGER REFERENCES users(id) ON DELETE CASCADE,
+            "chatroomsId" INTEGER REFERENCES chatrooms(id) ON DELETE CASCADE,
             name varchar(255) NOT NULL
         );
        
@@ -56,8 +57,8 @@ async function createInitialChannels() {
   try {
     console.log("Starting to create channels....");
     const channelsToCreate = [
-      { userId: 1, chatroomsId: 1, name: "testChannel" },
-      { userId: 1, chatroomsId: 2, name: "testChannel2" },
+      { userId: 1, chatroomsId: 2, name: "testChannel" },
+      { userId: 1, chatroomsId: 1, name: "testChannel2" },
     ];
     const channels = await Promise.all(
       channelsToCreate.map(Channel.createChannel)

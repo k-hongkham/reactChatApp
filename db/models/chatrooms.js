@@ -1,6 +1,6 @@
 const client = require("../client");
 
-module.exports = { createChatroom };
+module.exports = { createChatroom, addChatroomToChannel };
 
 async function createChatroom({ name }) {
   try {

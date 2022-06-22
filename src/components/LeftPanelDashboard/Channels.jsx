@@ -23,12 +23,12 @@ const Channels = () => {
       <h2>Channels</h2>
       <h3>{channels.name}</h3>
       <CreateChannel setChannels={setChannels} channels={channels} />
+
       {channels.length > 0
         ? channels.map((channel, idx) => {
             return (
               <div key={`userGeneratedChannels: ${idx}`}>
                 <h3>{channel.name}</h3>
-                <ChatRooms />
               </div>
             );
           })
